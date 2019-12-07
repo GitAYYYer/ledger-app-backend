@@ -2,29 +2,22 @@ package com.ledger.backend;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import com.ledger.exceptions.PersonNotFoundException;
 import com.ledger.model.Person;
 import com.ledger.model.Pool;
 
-public class Main {
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class Controller {
 	Scanner keyboard = new Scanner(System.in);
 	Pool pool = new Pool();
 
-	public static void main(String[] args) {
-		Main main = new Main();		
-
-		System.out.println("Enter mode: (1 or 2)");
-		Scanner sc = new Scanner(System.in);
-		String mode = sc.nextLine();
-		if(mode.equals("1")) {
-			main.menu();
-		}else {
-			main.maidSplit();
-		}
-		main.start();
-	}
-
 	//Simple interface for entering transactions (wes)
+	@GetMapping(value="/")
 	public void menu() {
 		System.out.println("Enter transactions in format: \n[Ower]:[Owee] [Amount]\n");
 		System.out.println("After entering all transactions, enter 'C' to calculate");
@@ -102,8 +95,8 @@ public class Main {
 
 	public void start() {
 
-						pool.addPerson(new Person("Duc"));
-						pool.addPerson(new Person("Adam"));
+		pool.addPerson(new Person("Duc"));
+		pool.addPerson(new Person("Adam"));
 		//				pool.addPerson(new Person("Eddy"));
 		//				pool.addPerson(new Person("Wes"));
 		//				pool.addPerson(new Person("Matt"));
@@ -111,10 +104,10 @@ public class Main {
 		//				
 		//				pool.addTransaction("Adam", "Duc", 2);
 		//				pool.addTransaction("Wes", "Adam", 2);	
-						
 
-//						pool.getPeople().get("Duc").addOwed(500);
-//						pool.getPeople().get("Adam").addOwes(50);
+
+		//						pool.getPeople().get("Duc").addOwed(500);
+		//						pool.getPeople().get("Adam").addOwes(50);
 
 		pool.calculate();
 		keyboard.close();
