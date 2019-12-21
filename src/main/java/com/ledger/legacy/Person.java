@@ -1,4 +1,4 @@
-package com.ledger.model;
+package com.ledger.legacy;
 public class Person {
 	private String name;
 	private double owes = 0;

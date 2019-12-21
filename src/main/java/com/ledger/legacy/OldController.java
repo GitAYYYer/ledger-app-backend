@@ -1,18 +1,14 @@
-package com.ledger.backend;
+package com.ledger.legacy;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import com.ledger.exceptions.PersonNotFoundException;
-import com.ledger.model.Person;
-import com.ledger.model.Pool;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Controller {
+public class OldController {
 	Scanner keyboard = new Scanner(System.in);
 	Pool pool = new Pool();
 

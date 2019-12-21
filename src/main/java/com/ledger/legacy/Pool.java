@@ -1,4 +1,5 @@
-package com.ledger.model;
+package com.ledger.legacy;
+
 import java.util.HashMap;
 
 public class Pool {

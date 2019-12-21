@@ -1,14 +1,14 @@
-package com.ledger.backend;
+package com.ledger;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.ledger.model.Pool;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 public class LedgerAppApplication {
-	Controller main = new Controller();
-	Pool pool = new Pool();
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LedgerAppApplication.class, args);
