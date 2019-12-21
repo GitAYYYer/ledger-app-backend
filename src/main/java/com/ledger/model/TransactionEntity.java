@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "transactions", schema = "ledger")
-public class Transaction {
+public class TransactionEntity {
 
     @Id
     @GeneratedValue
@@ -12,7 +12,7 @@ public class Transaction {
     private Integer transactionId;
 
     @ManyToOne
-    @JoinColumn(name = "pool_name")
+    @JoinColumn(name = "pool_id")
     private PoolEntity pool;
 
     @ManyToOne
@@ -32,7 +32,7 @@ public class Transaction {
     @Column(name = "owee_vrfy")
     private Boolean oweeVerify;
 
-    public Transaction(PoolEntity pool, UserEntity payee, UserEntity owee, Integer payAmount) {
+    public TransactionEntity(PoolEntity pool, UserEntity payee, UserEntity owee, Integer payAmount) {
         this.pool = pool;
         this.payee = payee;
         this.owee = owee;

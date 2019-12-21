@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class PoolUserXrefEntityKey implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "pool_name")
+    @JoinColumn(name = "pool_id")
     private PoolEntity poolEntity;
 
     @ManyToOne
@@ -22,6 +22,9 @@ public class PoolUserXrefEntityKey implements Serializable {
     public PoolUserXrefEntityKey(PoolEntity poolEntity, UserEntity userEntity) {
         this.poolEntity = poolEntity;
         this.userEntity = userEntity;
+    }
+
+    public PoolUserXrefEntityKey() {
     }
 
     public PoolEntity getPoolEntity() {
