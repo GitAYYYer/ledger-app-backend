@@ -8,6 +8,7 @@ import com.ledger.exceptions.PersonNotFoundException;
 import com.ledger.model.Person;
 import com.ledger.model.Pool;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,8 +16,33 @@ import org.springframework.web.bind.annotation.RestController;
 public class Controller {
 	Scanner keyboard = new Scanner(System.in);
 	Pool pool = new Pool();
+	Pool testPool;
 
 	//Simple interface for entering transactions (wes)
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping(value="/lol")
+	public String test() {
+		return "1";
+	}
+	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping(value="/create/testPool")
+	public String testPool() {
+		testPool = new Pool();
+		testPool.addPerson(new Person("Adam"));
+		testPool.addPerson(new Person("Duc"));
+		testPool.addPerson(new Person("Wes"));
+		testPool.addPerson(new Person("Eddy"));
+		testPool.addPerson(new Person("Matt"));
+		return "Success";
+	}
+	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping(value="/getTestPool")
+	public Pool getTestPool() {
+		return testPool;
+	}
+	
 	@GetMapping(value="/")
 	public void menu() {
 		System.out.println("Enter transactions in format: \n[Ower]:[Owee] [Amount]\n");
