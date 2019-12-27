@@ -1,13 +1,18 @@
 package com.ledger.model;
 import java.util.HashMap;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Pool {
 	private double balance;
 	private HashMap<String, Person> people;
+	private int id;
 	
-	public Pool() {
+	public Pool(int tempId) {
 		balance = 0.00;
 		people = new HashMap<String, Person>();
+		id = tempId;
 	}
 
 	public double getBalance() {
@@ -20,6 +25,10 @@ public class Pool {
 
 	public int getAmtOfPpl() {
 		return people.size();
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 	
 	public void addPerson(Person person) {

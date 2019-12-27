@@ -10,13 +10,58 @@ import com.ledger.model.Pool;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
 	Scanner keyboard = new Scanner(System.in);
-	Pool pool = new Pool();
-	Pool testPool;
+	Pool pool = new Pool(3);
+	Pool testPool= new Pool(4);
+	Person wesley = new Person("SUPER");
+	PoolTest pt;
+	Pool[] pt2 = new Pool[2];
+	
+	Controller() {
+		 pt = new PoolTest();
+	}
+
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping(value="/getPools/{username}")
+	public Pool[] getPool(@PathVariable String username) {
+//		if(username.equals("SUPER")) {
+//			return pt.getPools();
+//		} 
+		Pool[] pt3 = pt.getPools();
+		System.out.print(pt3);
+		return pt3;
+
+	}
+	
+	
+
+	//Login Test
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping(value="/login/{username}/{password}")
+	public Person login(@PathVariable String username,@PathVariable String password) {
+		Person retVal = new Person("Nobody");
+		if(username.equals("wesley") && password.equals("123")) {
+			retVal = wesley;
+		} 
+		return retVal;
+
+	}
+	
+	//Simple interface for entering transactions (wes)
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping(value="/login2/{username}/{password}")
+	public String login2(@PathVariable String username,@PathVariable String password) {
+		if(username.equals("wesley") && password.equals("123")) {
+			return "working";
+		} 
+		return "not working";
+
+	}
 
 	//Simple interface for entering transactions (wes)
 	@CrossOrigin(origins = "http://localhost:3000")
@@ -24,11 +69,11 @@ public class Controller {
 	public String test() {
 		return "1";
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(value="/create/testPool")
 	public String testPool() {
-		testPool = new Pool();
+		testPool = new Pool(6);
 		testPool.addPerson(new Person("Adam"));
 		testPool.addPerson(new Person("Duc"));
 		testPool.addPerson(new Person("Wes"));
@@ -36,13 +81,13 @@ public class Controller {
 		testPool.addPerson(new Person("Matt"));
 		return "Success";
 	}
-	
+
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(value="/getTestPool")
 	public Pool getTestPool() {
 		return testPool;
 	}
-	
+
 	@GetMapping(value="/")
 	public void menu() {
 		System.out.println("Enter transactions in format: \n[Ower]:[Owee] [Amount]\n");
