@@ -27,11 +27,11 @@ CREATE TABLE ledger."pooluserxref" (
 CREATE TABLE ledger."transactions" (
   "transaction_id" integer,
   "pool_id" integer references ledger.pool(pool_id),
-  "payee_id" text references ledger.users(user_id),
-  "owee_id" text references ledger.users(user_id),
+  "lender_id" text references ledger.users(user_id),
+  "borrower_id" text references ledger.users(user_id),
   "pay_amount" decimal,
-  "payee_vrfy" boolean,
-  "owee_vrfy" boolean,
+  "lender_vrfy" boolean,
+  "borrower_vrfy" boolean,
   PRIMARY KEY ("transaction_id")
 );
 
