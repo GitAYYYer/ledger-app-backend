@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TransactionRepository extends CrudRepository<TransactionEntity, Integer> {
 
-    List<TransactionEntity> getByOweeOrPayee(UserEntity owee, UserEntity payee);
+    List<TransactionEntity> getByBorrowerOrLender(UserEntity borrower, UserEntity lender);
 }

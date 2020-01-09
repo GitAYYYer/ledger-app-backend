@@ -4,12 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ledger.controller.model.PoolModel;
+import com.ledger.controller.model.TransactionModel;
 import com.ledger.controller.model.UserModel;
 import com.ledger.model.PoolEntity;
 import com.ledger.model.PoolUserXref;
+import com.ledger.model.TransactionEntity;
 import com.ledger.model.UserEntity;
 import com.ledger.model.key.PoolUserXrefEntityKey;
 import com.ledger.repository.PoolRepository;
+import com.ledger.repository.TransactionRepository;
 import com.ledger.repository.UserRepository;
 import com.ledger.repository.XrefRepository;
 import org.slf4j.Logger;
@@ -20,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -37,6 +41,9 @@ public class PoolController {
 
     @Autowired
     XrefRepository xrefRepository;
+
+    @Autowired
+    TransactionRepository transRepository;
 
     @Autowired
     ObjectMapper mapper;
@@ -59,10 +66,18 @@ public class PoolController {
     @GetMapping(value = "/{pool_id}", produces = "application/json")
     public ResponseEntity getPoolDetails(@PathVariable("pool_id") Integer poolId) throws JsonProcessingException {
         logger.trace("Call to getPoolDetails");
+
         PoolEntity poolEntity = poolRepository.findById(poolId).get();
+        PoolModel poolModel =  new PoolModel(poolEntity);
+
+        List<PoolUserXref> usersXref = xrefRepository.getByEntityKey_PoolEntity(poolEntity);
+
+        for(PoolUserXref m : usersXref) {
+            poolModel.addUser(new UserModel(m.getEntityKey().getUserEntity().getUserId()));
+        }
 
         logger.trace("Return call to getPoolDetails() with {}", poolEntity);
-        return ResponseEntity.ok().body(mapper.writeValueAsString(poolEntity));
+        return ResponseEntity.ok().body(mapper.writeValueAsString(poolModel));
     }
 
     @PostMapping(produces = "application/json")
@@ -107,8 +122,21 @@ public class PoolController {
     }
 
     @PostMapping(value = "/{pool_id}/trans", produces = "applcation/json")
-    public ResponseEntity addTransaction() {
+    public ResponseEntity addTransaction(@PathVariable(name = "pool_id") Integer poolId, @RequestBody TransactionModel model) {
 
+        PoolEntity pool = poolRepository.findById(poolId).get();
+
+        UserEntity payee = userRepository.findById(model.getPayeeId()).get();
+
+        UserEntity owee = userRepository.findById(model.getOweeId()).get();
+
+        Double ammount = model.getAmmount();
+
+        TransactionEntity newTrans = new TransactionEntity(pool,payee,owee,ammount);
+
+        transRepository.save(newTrans);
+
+        //TODO i dont this i tested this
 
         return ResponseEntity.ok().body(null);
     }
