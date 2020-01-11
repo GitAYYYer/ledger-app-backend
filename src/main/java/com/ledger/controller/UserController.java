@@ -58,7 +58,7 @@ public class UserController {
 
         UserEntity userEntity = userRepository.findById(userid).get();
 
-        return ResponseEntity.ok().body(mapper.writeValueAsString(userEntity));
+        return ResponseEntity.ok().body(mapper.writeValueAsString(new UserModel(userEntity)));
     }
 
     @PostMapping(produces = "application/json")
@@ -75,11 +75,11 @@ public class UserController {
     }
 
     @GetMapping(value = "/{userId}/trans", produces = "application/json")
-    public ResponseEntity getTransaction(@PathVariable String userId) throws JsonProcessingException{
+    public ResponseEntity getTransactions(@PathVariable String userId) throws JsonProcessingException{
 
         UserEntity userEntity = userRepository.findById(userId).get();
 
-        List<TransactionEntity> transactionEntities = transactionRepository.getByOweeOrPayee(userEntity, userEntity);
+        List<TransactionEntity> transactionEntities = transactionRepository.getByBorrowerOrLender(userEntity, userEntity);
 
         return ResponseEntity.ok().body(mapper.writeValueAsString(transactionEntities));
     }

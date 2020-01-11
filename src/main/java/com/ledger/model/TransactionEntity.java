@@ -16,26 +16,26 @@ public class TransactionEntity {
     private PoolEntity pool;
 
     @ManyToOne
-    @JoinColumn(name = "payee_id")
-    private UserEntity payee;
+    @JoinColumn(name = "lender_id")
+    private UserEntity lender;
 
     @ManyToOne
-    @JoinColumn(name = "owee_id")
-    private UserEntity owee;
+    @JoinColumn(name = "borrower_id")
+    private UserEntity borrower;
 
     @Column(name = "pay_amount")
-    private Integer payAmount;
+    private Double payAmount;
 
-    @Column(name = "payee_vrfy")
+    @Column(name = "lender_vrfy")
     private Boolean payeeVerify;
 
-    @Column(name = "owee_vrfy")
+    @Column(name = "borrower_vrfy")
     private Boolean oweeVerify;
 
-    public TransactionEntity(PoolEntity pool, UserEntity payee, UserEntity owee, Integer payAmount) {
+    public TransactionEntity(PoolEntity pool, UserEntity lender, UserEntity borrower, Double payAmount) {
         this.pool = pool;
-        this.payee = payee;
-        this.owee = owee;
+        this.lender = lender;
+        this.borrower = borrower;
         this.payAmount = payAmount;
         this.payeeVerify = false;
         this.oweeVerify = false;
@@ -57,27 +57,27 @@ public class TransactionEntity {
         this.pool = pool;
     }
 
-    public UserEntity getPayee() {
-        return payee;
+    public UserEntity getLender() {
+        return lender;
     }
 
-    public void setPayee(UserEntity payee) {
-        this.payee = payee;
+    public void setLender(UserEntity payee) {
+        this.lender = payee;
     }
 
-    public UserEntity getOwee() {
-        return owee;
+    public UserEntity getBorrower() {
+        return borrower;
     }
 
-    public void setOwee(UserEntity owee) {
-        this.owee = owee;
+    public void setBorrower(UserEntity owee) {
+        this.borrower = owee;
     }
 
-    public Integer getPayAmount() {
+    public Double getPayAmount() {
         return payAmount;
     }
 
-    public void setPayAmount(Integer payAmount) {
+    public void setPayAmount(double payAmount) {
         this.payAmount = payAmount;
     }
 
