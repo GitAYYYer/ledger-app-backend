@@ -30,8 +30,8 @@ public class UserModel {
     private String lastName;
 
     @NotNull
-    @JsonProperty("roles")
-    private String roles;
+    @JsonProperty("role")
+    private String role;
 
     public UserModel() {
     }
@@ -43,12 +43,12 @@ public class UserModel {
         this.firstName = null;
     }
 
-    public UserModel(String userid, String password, String firstName, String lastName, String roles) {
+    public UserModel(String userid, String password, String firstName, String lastName, String role) {
         this.userid = userid;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.roles = roles;
+        this.role = role;
     }
 
     public UserModel(UserEntity entity) {
@@ -56,7 +56,7 @@ public class UserModel {
         this.firstName = entity.getFirstName();
         this.lastName = entity.getLastName();
         this.password = entity.getPassword();
-        this.roles = entity.getRoles();
+        this.role = entity.getRole();
     }
     public String getUserid() {
         return userid;
@@ -92,11 +92,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 }

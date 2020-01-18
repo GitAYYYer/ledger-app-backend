@@ -29,8 +29,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "roles")
-    private String roles;
+    @Column(name = "role")
+    private String role;
 
     /*
     Empty constructor, for Spring(?)
@@ -38,12 +38,12 @@ public class UserEntity implements UserDetails {
     public UserEntity() {
     }
 
-    public UserEntity(String username, String password, String firstName, String lastName, String roles) {
+    public UserEntity(String username, String password, String firstName, String lastName, String role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.roles = roles;
+        this.role = role;
     }
 
     @Override
@@ -80,12 +80,12 @@ public class UserEntity implements UserDetails {
         this.lastName = lastName;
     }
 
-    public String getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     /*
@@ -98,7 +98,7 @@ public class UserEntity implements UserDetails {
         Basically just return the roles string (which is csv)
         as a list instead.
          */
-        return Arrays.stream(roles.split(","))
+        return Arrays.stream(role.split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
