@@ -13,7 +13,7 @@ public class OldController {
 	Pool pool = new Pool();
 
 	//Simple interface for entering transactions (wes)
-	@GetMapping(value="/")
+	@GetMapping(value="/old")
 	public void menu() {
 		System.out.println("Enter transactions in format: \n[Ower]:[Owee] [Amount]\n");
 		System.out.println("After entering all transactions, enter 'C' to calculate");
