@@ -2,7 +2,7 @@ package com.ledger.legacy;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import com.ledger.exceptions.PersonNotFoundException;
+import com.ledger.exceptions.UserNotFoundException;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -163,7 +163,7 @@ public class OldController {
 
 				pool.addTransaction(borrower, giver, amount);
 			}
-		} catch (PersonNotFoundException e) {
+		} catch (UserNotFoundException e) {
 			e.printStackTrace();
 		} catch (InputMismatchException z) {
 			//Clear the scanner buffer after entering a number.
@@ -171,9 +171,9 @@ public class OldController {
 		}
 	}
 
-	private void personExists(String name) throws PersonNotFoundException {
+	private void personExists(String name) throws UserNotFoundException {
 		if (!pool.getPeople().containsKey(name)) {
-			throw new PersonNotFoundException(name + " does not exist in the pool.");
+			throw new UserNotFoundException(name + " does not exist in the pool.");
 		}
 	}	
 }

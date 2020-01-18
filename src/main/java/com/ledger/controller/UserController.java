@@ -38,8 +38,7 @@ public class UserController {
 
     @Autowired
     ObjectMapper mapper;
-
-
+    
     @GetMapping(produces = "application/json")
     public ResponseEntity getAllUser() throws JsonProcessingException {
 
@@ -67,7 +66,8 @@ public class UserController {
         if(userRepository.existsById(userModel.getUserid()))
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already taken");
 
-        UserEntity newUser = new UserEntity(userModel.getUserid(), userModel.getPassword(), userModel.getFirstName(), userModel.getLastName());
+        UserEntity newUser = new UserEntity(userModel.getUserid(), userModel.getPassword(),
+                userModel.getFirstName(), userModel.getLastName(), userModel.getRoles());
 
         userRepository.save(newUser);
 

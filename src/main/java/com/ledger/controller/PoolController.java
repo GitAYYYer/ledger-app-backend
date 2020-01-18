@@ -1,7 +1,6 @@
 package com.ledger.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ledger.controller.model.PoolModel;
 import com.ledger.controller.model.TransactionModel;
@@ -23,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -73,7 +71,7 @@ public class PoolController {
         List<PoolUserXref> usersXref = xrefRepository.getByEntityKey_PoolEntity(poolEntity);
 
         for(PoolUserXref m : usersXref) {
-            poolModel.addUser(new UserModel(m.getEntityKey().getUserEntity().getUserId()));
+            poolModel.addUser(new UserModel(m.getEntityKey().getUserEntity().getUsername()));
         }
 
         logger.trace("Return call to getPoolDetails() with {}", poolEntity);
