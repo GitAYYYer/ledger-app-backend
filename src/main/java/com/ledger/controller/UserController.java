@@ -38,7 +38,7 @@ public class UserController {
 
     @Autowired
     ObjectMapper mapper;
-    
+
     @GetMapping(produces = "application/json")
     public ResponseEntity getAllUser() throws JsonProcessingException {
 
